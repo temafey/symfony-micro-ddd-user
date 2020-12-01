@@ -1,0 +1,51 @@
+services:
+
+  mapping_aware_service:
+    class: Backend\Api\User\Application\Service\MappingCollector
+    tags: ['json_rpc_http_server.method_aware']
+
+  Backend\Api\User\Presentation\Rpc\PingMethod:
+    public: false
+    tags: [{ method: 'ping', name: 'json_rpc_http_server.jsonrpc_method' }]
+
+  Backend\Api\User\Presentation\Rpc\RegisterMethod:
+    public: false
+    arguments:
+      - '@tactician.commandbus.command.create.user'
+      - '@Backend\Api\User\Domain\Factory\CommandFactory'
+    tags: [{ method: 'register', name: 'json_rpc_http_server.jsonrpc_method' }]
+
+  Backend\Api\User\Presentation\Rpc\UpdateMethod:
+    public: false
+    arguments:
+      - '@tactician.commandbus.command.create.user'
+      - '@Backend\Api\User\Domain\Factory\CommandFactory'
+    tags: [{ method: 'update', name: 'json_rpc_http_server.jsonrpc_method' }]
+
+  Backend\Api\User\Presentation\Rpc\DeleteMethod:
+    public: false
+    arguments:
+      - '@tactician.commandbus.command.create.user'
+      - '@Backend\Api\User\Domain\Factory\CommandFactory'
+    tags: [{ method: 'delete', name: 'json_rpc_http_server.jsonrpc_method' }]
+
+  Backend\Api\User\Presentation\Rpc\SignInMethod:
+    public: false
+    arguments:
+      - '@tactician.commandbus.command.query.user'
+      - '@Backend\Api\User\Domain\Factory\CommandFactory'
+    tags: [{ method: 'sign-in', name: 'json_rpc_http_server.jsonrpc_method' }]
+
+  Backend\Api\User\Presentation\Rpc\FetchMethod:
+    public: false
+    arguments:
+      - '@tactician.commandbus.command.query.user'
+      - '@Backend\Api\User\Domain\Factory\CommandFactory'
+    tags: [{ method: 'fetch', name: 'json_rpc_http_server.jsonrpc_method' }]
+
+  Backend\Api\User\Presentation\Rpc\FindMethod:
+    public: false
+    arguments:
+      - '@tactician.commandbus.command.query.user'
+      - '@Backend\Api\User\Domain\Factory\CommandFactory'
+    tags: [{ method: 'find', name: 'json_rpc_http_server.jsonrpc_method' }]

@@ -1,0 +1,30 @@
+imports:
+  - { resource: 'parameters.yaml' }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+    bind:
+      $eventBus: '@broadway.event_handling.event_bus'
+      $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
+      $readModelStore: '@Backend\Api\User\Infrastructure\Repository\Storage\DBALReadModelStore'
+      $taskProducer: '@enqueue.client.task.producer'
+
+  _instanceof:
+    Backend\Api\User\Application\CommandHandler\CommandHandlerInterface:
+      public: true
+      tags:
+        - { name: tactician.handler, typehints: true, bus: command.create.user }
+
+    Backend\Api\User\Application\QueryHandler\CommandHandlerInterface:
+      public: true
+      tags:
+        - { name: tactician.handler, typehints: true, bus: command.query.user }
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  Backend\Api\User\:
+    resource: '../src/*'
+    exclude: '../src/{Kernel.php}'

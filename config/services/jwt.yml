@@ -1,0 +1,46 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: false
+    public: false
+
+  MicroModule\JWT\Factory:
+    tags: [{ name: factory }]
+    public: true
+    calls:
+      - [setBuilder, ['@MicroModule\JWT\Token\Builder']]
+      - [setSigner, ['@MicroModule\JWT\Signer\Rsa\Sha256']]
+      - [setSignerPrivateKey, ['@MicroModule\JWT\Signer\Private\Key']]
+      - [setSignerPublicKey, ['@MicroModule\JWT\Signer\Public\Key']]
+      - [setIssuer, ['%app.service_name%']]
+      - [setExpireInterval, ['%token.time.expire%']]
+      - [setUsedAfterInterval, ['%token.time.used.after%']]
+      - [setParser, ['@MicroModule\JWT\Token\Parser']]
+      - [setValidator, ['@MicroModule\JWT\Validation\Validator']]
+
+  MicroModule\JWT\Signer\Rsa\Sha256:
+    class: 'MicroModule\JWT\Signer\Rsa\Sha256'
+
+  MicroModule\JWT\Token\Builder:
+    arguments: ['@MicroModule\JWT\Parser\Parser']
+
+  MicroModule\JWT\Parser\Parser:
+    class: 'MicroModule\JWT\Parser\Parser'
+
+  MicroModule\JWT\Validation\Validator:
+    class: 'MicroModule\JWT\Validation\Validator'
+
+  MicroModule\JWT\Signer\Private\Key:
+    class: 'MicroModule\JWT\Signer\Key'
+    arguments:
+      - '%openssl.private_file_path%'
+      - '%openssl.passphrase%'
+
+  MicroModule\JWT\Signer\Public\Key:
+    class: 'MicroModule\JWT\Signer\Key'
+    arguments:
+      - '%openssl.public_file_path%'
+      - '%app.secret%'
+
+  MicroModule\JWT\Token\Parser:
+    arguments: ['@MicroModule\JWT\Parser\Parser']

@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  swoole:
+    container_name: ${APP_COMPOSE_PROJECT_NAME}_php
+    image: temafey/php{PHP_VER}-cli
+    networks:
+      - micro-backend
+    user: 1000:1000
+    volumes:
+      - ~/.composer/cache/:/.composer_cache/:rw
+      - .:/app:rw
+    working_dir: /app
+    restart: on-failure
+    command: '/app/bin/console swoole:server:run'
+    ports:
+      - 9501:9501
+      - 9200:9200
+
+  queue-events:
+    container_name: ${APP_COMPOSE_PROJECT_NAME}_queue_events
+    image: temafey/php{PHP_VER}-cli
+    networks:
+      - micro-backend
+    user: 1000:1000
+    volumes:
+      - .:/app:rw
+    working_dir: /app
+    restart: on-failure
+    command: '/app/bin/console enqueue:consume -c queueevent'
+
+networks:
+  micro-backend:
+    name: micro-backend
+    driver: bridge

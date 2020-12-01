@@ -1,0 +1,29 @@
+includes:
+	- vendor/phpstan/phpstan-mockery/extension.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-symfony/extension.neon
+
+parameters:
+	parallel:
+	    jobSize: 20
+	    maximumNumberOfProcesses: 32
+	    minimumNumberOfJobsPerProcess: 2
+	    processTimeout: 100.0
+	checkGenericClassInNonGenericObjectType: false
+	checkMissingIterableValueType: false
+	excludes_analyse:
+		- /app/src/Infrastructure/Migrations/*
+		- /app/src/Presentation/Cli/Command/*
+		- /app/tests/Unit/Preprocessor/*
+		- /app/tests/Unit/Mock/*
+	ignoreErrors:
+	    - '#Unsafe usage of new static\(\).#'
+	    - '#Strict comparison using === between 1 and float will always evaluate to false.#'
+	    - '#Method.*create.*ValueObject.*Mock\(\) should return.*Mockery\\MockInterface but returns Mockery\\MockInterface.#'
+	    - '#Parameter .* expects .*Mockery\\MockInterface.* given\.#'
+	    - '#Parameter .* method Backend\\Api\\User\\Domain\\ValueObject\\.* expects Backend\\Api\\User\\Domain\\ValueObject\\.*, MicroModule\\ValueObject\\.* given.#'
+	    - '#Method Backend\\Api\\User\\Domain\\Factory\\ValueObjectFactory.* should return Backend\\Api\\User\\Domain\\ValueObject.* but returns MicroModule\\ValueObject\\.*#'
+	    - '#Parameter .* Backend\\Api\\User\\.* constructor expects Backend\\Api\\User\\Domain\\ValueObject\\.*, MicroModule\\ValueObject\\.* given\.#'
+	    - '#Method Backend\\Api\\User\\Tests\\.* should return .* but returns Mockery\\MockInterface\.#'
+	    - '#Return typehint of method Backend\\Api\\User\\Tests\\Integration\\ApplicationTestCase.* has invalid type MicroModule\\Base\\Domain\\ValueObject\\ObjectStorage\.#'
+

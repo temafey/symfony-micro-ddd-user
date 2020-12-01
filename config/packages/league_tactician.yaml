@@ -1,0 +1,15 @@
+tactician:
+  default_bus: command.create.user
+  commandbus:
+    command.create.user:
+      middleware:
+        - tactician.middleware.locking
+        - tactician.middleware.logger
+        - tactician.middleware.event
+        - tactician.commandbus.command.create.user.middleware.command_handler
+
+    command.query.user:
+      middleware:
+        - tactician.middleware.logger
+        - tactician.middleware.event
+        - tactician.commandbus.command.query.user.middleware.command_handler

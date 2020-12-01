@@ -1,0 +1,42 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Backend\Api\User\Application\QueryHandler\FetchOneHandler:
+    arguments:
+      - '@Backend\Api\User\Infrastructure\Repository\QueryRepository'
+      - '@Backend\Api\User\Application\Service\UserAssembler'
+    tags:
+      - { name: tactician.handler, typehints: true, bus: command.query.user }
+
+  Backend\Api\User\Application\QueryHandler\FindLiteHandler:
+    arguments:
+      - '@Backend\Api\User\Infrastructure\Repository\QueryLiteRepository'
+    tags:
+      - { name: tactician.handler, typehints: true, bus: command.query.user }
+
+  Backend\Api\User\Application\QueryHandler\FindHandler:
+    arguments:
+      - '@Backend\Api\User\Infrastructure\Repository\QueryRepository'
+      - '@Backend\Api\User\Application\Service\UserAssembler'
+    tags:
+      - { name: tactician.handler, typehints: true, bus: command.query.user }
+
+  Backend\Api\User\Application\QueryHandler\SignInHandler:
+    arguments:
+      - '@Backend\Api\User\Domain\Repository\UserRepositoryInterface'
+      - '@Backend\Api\User\Infrastructure\Repository\QueryRepository'
+    tags:
+      - { name: tactician.handler, typehints: true, bus: command.query.user }
+
+  Backend\Api\User\Application\Projector\UserProjector:
+    arguments:
+      - '@Backend\Api\User\Infrastructure\Repository\UserStoreRepository'
+      - '@Backend\Api\User\Infrastructure\Repository\CommandRepository'
+      - '@Backend\Api\User\Infrastructure\Repository\QueryRepository'
+      - '@tactician.commandbus.command.create.user'
+      - '@Backend\Api\User\Domain\Factory\CommandFactory'
+    tags:
+      - { name: broadway.domain.event_listener }

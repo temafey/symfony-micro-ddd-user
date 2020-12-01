@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  MicroModule\Base\Domain\Service\NormalizableServiceInterface:
+    class: MicroModule\MasterData\Application\Service\UserResultDtoNormalizeService
+
+  Backend\Api\User\Infrastructure\Repository\UserStoreRepository:
+    autowire: true
+    arguments:
+      - '@Backend\Api\User\Infrastructure\Repository\UserEventSourcingStoreRepository'
+      - '@Broadway\EventStore\Dbal\DBALEventStore'
+      - '@MicroModule\Snapshotting\Snapshot\SnapshotRepository'
+      - '@MicroModule\Snapshotting\Snapshot\Trigger\EventCountTrigger'
+
+  Backend\Api\User\Infrastructure\Repository\Storage\DBALReadModelStore:
+    arguments:
+      - '@doctrine.dbal.default_connection'
+      - 'users'
+      - 'uuid'
+
+  MicroModule\Snapshotting\Snapshot\Trigger\EventCountTrigger:
+    arguments:
+      - 20

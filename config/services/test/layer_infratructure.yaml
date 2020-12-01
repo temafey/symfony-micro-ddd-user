@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Backend\Api\User\Infrastructure\Repository\Storage\DBALReadModelStore:
+    class: Backend\Api\User\Infrastructure\Repository\Storage\InMemoryReadModelStore
+    arguments:
+      - 'uuid'

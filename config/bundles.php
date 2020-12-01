@@ -1,0 +1,26 @@
+<?php
+
+return [
+    Broadway\Bundle\BroadwayBundle\BroadwayBundle::class => ['all' => true],
+    Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
+    Enqueue\Bundle\EnqueueBundle::class => ['all' => true],
+    HarmBandstra\SwaggerUiBundle\HBSwaggerUiBundle::class => ['all' => true],
+    K911\Swoole\Bridge\Symfony\Bundle\SwooleBundle::class => ['all' => true],
+    League\Tactician\Bundle\TacticianBundle::class => ['all' => true],
+    MicroModule\SagaBundle\SagaBundle::class => ['all' => true],
+    MicroModule\TaskBundle\TaskBundle::class => ['all' => true],
+    Sentry\SentryBundle\SentryBundle::class => ['all' => true],
+    Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
+    Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
+    Yoanm\SymfonyJsonRpcHttpServer\JsonRpcHttpServerBundle::class => ['all' => true],
+    Yoanm\SymfonyJsonRpcParamsValidator\JsonRpcParamsValidatorBundle::class => ['all' => true],
+    Yoanm\SymfonyJsonRpcHttpServerDoc\JsonRpcHttpServerDocBundle::class => ['all' => true],
+    Yoanm\SymfonyJsonRpcParamsSfConstraintsDoc\JsonRpcParamsSfConstraintsDocBundle::class => ['all' => true],
+    Yoanm\SymfonyJsonRpcHttpServerOpenAPIDoc\JsonRpcHttpServerOpenAPIDocBundle::class => ['all' => true],
+    Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
+    Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
+    Symplify\ParameterNameGuard\ParameterNameGuardBundle::class => ['dev' => true, 'test' => true],
+    Symplify\ConsoleColorDiff\ConsoleColorDiffBundle::class => ['dev' => true, 'test' => true],
+    Symplify\CodingStandard\SymplifyCodingStandardBundle::class => ['dev' => true, 'test' => true],
+    Symplify\EasyCodingStandard\EasyCodingStandardBundle::class => ['dev' => true, 'test' => true],
+];

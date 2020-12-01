@@ -1,0 +1,56 @@
+parameters:
+  app.env: '%env(APP_ENV)%'
+  app.secret: '%env(APP_SECRET)%'
+  app.service_name: '%env(CI_SERVICE_NAME)%'
+  app.version: '%env(APP_VERSION)%'
+
+  sentry.dsn: '%env(USER_SERVICE_SENTRY_DSN)%'
+
+  slack.token: '%env(USER_SERVICE_SLACK_TOKEN)%'
+  slack.channel: '%env(USER_SERVICE_SLACK_ERROR_CHANNEL)%'
+  slack.bot: '%env(USER_SERVICE_SLACK_BOT_NAME)%'
+
+  redis.host: '%env(USER_SERVICE_REDIS_HOST)%'
+  redis.port: '%env(USER_SERVICE_REDIS_PORT)%'
+
+  enqueue.amqp.host:  '%env(USER_SERVICE_RABBITMQ_HOST)%'
+  enqueue.amqp.port:  '%env(USER_SERVICE_RABBITMQ_PORT)%'
+  enqueue.amqp.user:  '%env(USER_SERVICE_RABBITMQ_USER)%'
+  enqueue.amqp.pass:  '%env(USER_SERVICE_RABBITMQ_PASS)%'
+  enqueue.amqp.vhost: '%env(USER_SERVICE_RABBITMQ_VHOST)%'
+  enqueue.client.prefix: 'md.%app.service_name%'
+  enqueue.client.app:    'user'
+
+  enqueue.task.client.app: 'task'
+  enqueue.event.client.app: 'event'
+  enqueue.taskevent.client.app: 'task.event'
+  enqueue.queueevent.client.app: 'queue.event'
+
+  affiliate.base-url: '%env(USER_SERVICE_API_BASE_URL)%'
+  affiliate.user-id:  '%env(USER_SERVICE_API_USER_ID)%'
+  affiliate.api-key:  '%env(USER_SERVICE_API_API_KEY)%'
+
+  alerting.delaytime:     '%env(USER_SERVICE_ALERTING_DELAY_TIME)%'
+  alerting.adapter.type:  alerta
+  alerting.adapter.host:  '%env(USER_SERVICE_ALERTING_ALERTA_HOST)%'
+  alerting.adapter.port:  '%env(USER_SERVICE_ALERTING_ALERTA_PORT)%'
+  alerting.adapter.token: '%env(USER_SERVICE_ALERTING_ALERTA_TOKEN)%'
+
+  db.postgresql.host:       '%env(USER_SERVICE_POSTGRESQL_HOST)%'
+  db.postgresql.port:       "%env(USER_SERVICE_POSTGRESQL_PORT)%"
+  db.postgresql.dbname:     '%env(USER_SERVICE_POSTGRESQL_DB)%'
+  db.postgresql.user:       '%env(USER_SERVICE_POSTGRESQL_USER)%'
+  db.postgresql.password:   '%env(USER_SERVICE_POSTGRESQL_PASS)%'
+
+  statistic.server.host: '%env(USER_SERVICE_STATSD_SERVER_HOST)%'
+  statistic.server.port: '%env(USER_SERVICE_STATSD_SERVER_PORT)%'
+  statistic.server.protocol: 'udp'
+  statistic.monitoring.prefix: '%env(USER_SERVICE_STATSD_ENV)%.dg.%app.service_name%'
+  statistic.monitoring.butch-size: 1
+
+  token.time.expire: 3600
+  token.time.used.after: 0
+
+  openssl.private_file_path: 'file:///app/var/jwt/private.pem'
+  openssl.public_file_path: 'file:///app/var/jwt/public.pem'
+  openssl.passphrase: '%env(OPENSSL_PASSPHRASE)%'
